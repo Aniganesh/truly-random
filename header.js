@@ -40,7 +40,11 @@ function setToggleButtonIcon() {
 }
 
 function toggleDarkMode() {
-	document.body.classList.toggle('dark');
+	const isDark = document.body.classList.toggle('dark');
+
+	// Save preference to localStorage
+	localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
 	setToggleButtonIcon();
 }
 
