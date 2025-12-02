@@ -1,0 +1,83 @@
+/* Common theme variables */
+:root {
+	--bg-color: #e0f7fa;
+	--text-color: #004d40;
+	--container-bg-color: #ffffff;
+	--link-color: #00796b;
+}
+
+.dark {
+	--bg-color: #002b36;
+	--text-color: #aec0c0;
+	--container-bg-color: #073642;
+	--link-color: #58a5b3;
+}
+
+/* Base body styles */
+body {
+	font-family: 'Helvetica Neue', Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	transition: background-color 0.3s, color 0.3s;
+}
+
+/* Common container styles */
+.container {
+	width: 80%;
+	background-color: var(--container-bg-color);
+	padding: 40px;
+	border-radius: 12px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: background-color 0.3s, color 0.3s;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+p {
+	margin: 0 0 20px;
+	transition: color 0.3s;
+}
+
+/* Links */
+a {
+	color: var(--link-color);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/* Dark mode toggle button */
+.toggle-container {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	z-index: 1000;
+}
+
+.toggle-button {
+	background-color: #00796b;
+	color: #ffffff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.toggle-button:hover {
+	background-color: #00695c;
+}
+
+.toggle-button svg {
+	width: 24px;
+	height: 24px;
+}

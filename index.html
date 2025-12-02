@@ -5,157 +5,71 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Truly Random</title>
+	<link rel="stylesheet" href="styles.css">
 	<style>
-		:root {
-			--bg-color: #e0f7fa;
-			--text-color: #004d40;
-			--container-bg-color: #ffffff;
-			--link-color: #00796b;
-		}
-
-		.dark {
-			--bg-color: #002b36;
-			--text-color: #aec0c0;
-			--container-bg-color: #073642;
-			--link-color: #58a5b3;
-		}
-
-		body {
-			font-family: 'Helvetica Neue', Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-			background-color: var(--bg-color);
-			color: var(--text-color);
+		/* Page-specific styles */
+		.main-content {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			height: 100vh;
-			transition: background-color 0.3s, color 0.3s;
 		}
 
 		.container {
-			width: 80%;
 			max-width: 600px;
-			background-color: var(--container-bg-color);
-			padding: 40px;
-			border-radius: 12px;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-			transition: background-color 0.3s, color 0.3s;
 		}
 
-		h1,
-		p {
-			margin: 0 0 20px;
-			transition: color 0.3s;
-		}
-
-		a {
-			color: var(--link-color);
-			text-decoration: none;
-		}
-
-		a:hover {
-			text-decoration: underline;
-		}
-
-		.toggle-container {
-			position: absolute;
-			top: 20px;
-			right: 20px;
-		}
-
-		.toggle-button {
-			background-color: #00796b;
-			color: #ffffff;
-			border: none;
-			padding: 10px 20px;
-			border-radius: 20px;
-			cursor: pointer;
-			transition: background-color 0.3s;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-
-		.toggle-button:hover {
-			background-color: #00695c;
-		}
-
-		.toggle-button svg {
-			width: 24px;
-			height: 24px;
-		}
 		@media screen and (min-width: 1080px) {
-        body {
-            font-size: 18px;
-        }
+			body {
+				font-size: 18px;
+			}
 
-        .container {
-            max-width: 800px;
-            padding: 60px;
-        }
+			.container {
+				max-width: 800px;
+				padding: 60px;
+			}
 
-        h1 {
-            font-size: 2.5em;
-        }
+			h1 {
+				font-size: 2.5em;
+			}
 
-        p {
-            font-size: 1.2em;
-        }
-    }
+			p {
+				font-size: 1.2em;
+			}
+		}
 	</style>
 </head>
 
 <body>
-	<div class="toggle-container">
-		<button class="toggle-button" id="darkModeToggle" onclick="toggleDarkMode()">
-			<svg id="toggleIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"></svg>
-		</button>
-	</div>
-	<div class="container">
-		<h1>Welcome to Truly Random</h1>
-		<p>Hello and welcome to Truly Random, the official home of my projects and ideas. I'm Aniruddha, and I'm thrilled to
-			have you here. Currently, this site hosts a couple of projects,
+	<script>
+		// Set theme immediately to prevent flash
+		if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+			document.body.classList.add('dark');
+		}
+	</script>
+	<div class="main-content">
+		<div class="container">
+			<h1>Welcome to Truly Random</h1>
+			<p>Hello and welcome to Truly Random, the official home of my projects and ideas. I'm Aniruddha, and I'm thrilled
+				to
+				have you here. Currently, this site hosts a couple of projects,
 			<ul>
 				<li><a href="https://svgrc.trulyrandom.in">SVG to React</a>,
-				designed to effortlessly convert SVG files into React components.</p></li>
-				<li><a href="https://artha.trulyrandom.in">Artha </a> A simple tool that enables you to ensure that your loved ones do not lose access to your digital assets and/or devices
-				in the unfortunate event of your demise.</li>
-			</ul> 
-		<p>Additionally, I invite you to explore my other site, <a href="https://indic-games.in">Indic Games</a>, where
-			you'll find a collection of games inspired by Indian culture. Feel free to explore and reach out if you have any
-			questions or thoughts to share. Enjoy your stay, and let's make randomness truly inspiring!</p>
+					designed to effortlessly convert SVG files into React components.</p>
+				</li>
+				<li><a href="https://artha.trulyrandom.in">Artha </a> A simple tool that enables you to ensure that your loved
+					ones do not lose access to your digital assets and/or devices
+					in the unfortunate event of your demise.</li>
+			</ul>
+			<p>I also occasionally write about my technical experiments and findings. Check out my latest post on <a
+					href="benchmark-blog-post.html">benchmarking the 'cn' utility function</a>, where I compare four different
+				implementations to see if <code>clsx</code> is really worth the dependency.</p>
+			<p>Additionally, I invite you to explore my other site, <a href="https://indic-games.in">Indic Games</a>, where
+				you'll find a collection of games inspired by Indian culture. Feel free to explore and reach out if you have any
+				questions or thoughts to share. Enjoy your stay, and let's make randomness truly inspiring!</p>
+		</div>
 	</div>
-	<script>
-		function setInitialMode() {
-			const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-			const bodyElement = document.body;
-			if (prefersDarkScheme) {
-				bodyElement.classList.add('dark');
-			} else {
-				bodyElement.classList.remove('dark');
-			}
-			setToggleButtonIcon();
-		}
-
-		const SUN_ICON = `<path fill="currentcolor" d="M408.19 256c0-83.92-68.27-152.19-152.19-152.19S103.81 172.08 103.81 256 172.08 408.19 256 408.19 408.19 339.92 408.19 256zM256 376.19c-66.27 0-120.19-53.92-120.19-120.19S189.73 135.81 256 135.81 376.19 189.73 376.19 256 322.27 376.19 256 376.19zM240 43.5v26.52c0 8.84 7.16 16 16 16s16-7.16 16-16V43.5c0-8.84-7.16-16-16-16s-16 7.16-16 16zM417.57 94.43c-6.25-6.25-16.38-6.25-22.63 0l-18.75 18.75c-6.25 6.25-6.25 16.38 0 22.63 3.12 3.12 7.22 4.69 11.31 4.69s8.19-1.56 11.31-4.69l18.75-18.75c6.26-6.25 6.26-16.39.01-22.63zM441.98 272h26.52c8.84 0 16-7.16 16-16s-7.16-16-16-16h-26.52c-8.84 0-16 7.16-16 16s7.16 16 16 16zM394.95 417.57c3.12 3.12 7.22 4.69 11.31 4.69s8.19-1.56 11.31-4.69c6.25-6.25 6.25-16.38 0-22.63l-18.75-18.75c-6.25-6.25-16.38-6.25-22.63 0s-6.25 16.38 0 22.63l18.76 18.75zM240 441.98v26.52c0 8.84 7.16 16 16 16s16-7.16 16-16v-26.52c0-8.84-7.16-16-16-16s-16 7.16-16 16zM105.74 422.26c4.09 0 8.19-1.56 11.31-4.69l18.75-18.75c6.25-6.25 6.25-16.38 0-22.63s-16.38-6.25-22.63 0l-18.75 18.75c-6.25 6.25-6.25 16.38 0 22.63 3.13 3.13 7.23 4.69 11.32 4.69zM43.5 272h26.52c8.84 0 16-7.16 16-16s-7.16-16-16-16H43.5c-8.84 0-16 7.16-16 16s7.16 16 16 16zM94.43 94.43c-6.25 6.25-6.25 16.38 0 22.63l18.75 18.75c3.12 3.12 7.22 4.69 11.31 4.69s8.19-1.56 11.31-4.69c6.25-6.25 6.25-16.38 0-22.63l-18.75-18.75c-6.24-6.25-16.38-6.25-22.62 0z"/>`;
-
-		const MOON_ICON = `<circle cx="256" cy="256" r="200" fill="currentcolor"/>`;
-
-		function setToggleButtonIcon() {
-			const isDarkMode = document.body.classList.contains('dark');
-			const toggleIcon = document.getElementById('toggleIcon');
-			toggleIcon.innerHTML = isDarkMode ? SUN_ICON : MOON_ICON;
-		}
-
-
-		function toggleDarkMode() {
-			document.body.classList.toggle('dark');
-			setToggleButtonIcon();
-		}
-
-		document.addEventListener('DOMContentLoaded', setInitialMode);
-	</script>
+	<script src="header.js"></script>
 </body>
 
 </html>

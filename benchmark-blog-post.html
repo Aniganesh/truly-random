@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Benchmark Blog Post - Truly Random</title>
+	<link rel="stylesheet" href="styles.css">
+	<style>
+		/* Page-specific styles */
+		.main-content {
+			display: flex;
+			justify-content: center;
+			align-items: flex-start;
+			min-height: 100vh;
+		}
+
+		.container {
+			max-width: 800px;
+			margin-bottom: 40px;
+		}
+
+		h1 {
+			font-size: 2.2em;
+			margin-bottom: 10px;
+		}
+
+		.meta {
+			color: var(--text-color);
+			opacity: 0.7;
+			font-size: 0.9em;
+			margin-bottom: 30px;
+		}
+
+		p {
+			line-height: 1.6;
+		}
+
+		.back-link {
+			display: inline-block;
+			margin-bottom: 20px;
+			font-size: 0.9em;
+		}
+
+		.blog-content {
+			margin-top: 30px;
+		}
+
+		pre,
+		code {
+			background-color: var(--bg-color);
+			padding: 10px;
+			border-radius: 6px;
+			font-family: 'Monaco', 'Consolas', monospace;
+			overflow-x: auto;
+		}
+
+		code {
+			padding: 2px 6px;
+		}
+
+		blockquote {
+			border-left: 4px solid var(--link-color);
+			margin: 20px 0;
+			padding-left: 20px;
+			font-style: italic;
+		}
+
+		/* Blog post specific styles */
+		.post-header {
+			margin-bottom: 2rem;
+			border-bottom: 1px solid #eaeaea;
+			padding-bottom: 1rem;
+		}
+
+		.post-title {
+			margin-bottom: 0.5rem;
+			font-size: 2.5rem;
+			font-weight: 800;
+		}
+
+		.post-meta {
+			color: #666;
+			font-size: 0.9rem;
+		}
+
+		.post-meta span {
+			margin: 0 0.5rem;
+		}
+
+		.section-heading {
+			margin-top: 2rem;
+			font-size: 1.8rem;
+		}
+
+		.subsection-heading {
+			font-size: 1.3rem;
+		}
+
+		.sub-heading {
+			font-size: 1.2rem;
+			margin-top: 1.5rem;
+		}
+
+
+		.collapsible-code .code-block pre,
+		.code-example {
+			margin-top: 1rem;
+			padding: 1rem;
+			border-radius: 6px;
+			overflow-x: auto;
+			font-size: 0.9rem;
+			background-color: var(--bg-color);
+		}
+
+		.collapsible-code {
+			margin: 1rem 0;
+			border: 1px solid var(--link-color);
+			border-radius: 6px;
+			padding: 0.5rem;
+		}
+
+		.accordion-header {
+			cursor: pointer;
+			font-weight: 600;
+			padding: 0.5rem;
+			user-select: none;
+		}
+
+		.accordion-header::before {
+			content: '▶';
+			display: inline-block;
+			margin-right: 0.5rem;
+			transition: transform 0.3s ease;
+		}
+
+		.collapsible-code.is-open .accordion-header::before {
+			transform: rotate(90deg);
+		}
+
+		.collapsible-code .code-block {
+			max-height: 0;
+			overflow: hidden;
+			opacity: 0;
+			transition: max-height 0.4s ease, opacity 0.3s ease;
+		}
+
+		.collapsible-code.is-open .code-block {
+			max-height: 2000px;
+			opacity: 1;
+		}
+
+		.table-wrapper {
+			overflow-x: auto;
+			margin: 2rem 0;
+		}
+
+		.results-table {
+			width: 100%;
+			border-collapse: collapse;
+			font-size: 0.9rem;
+			min-width: 600px;
+		}
+
+		.results-table thead tr {
+			background-color: var(--bg-color);
+			border-bottom: 2px solid var(--link-color);
+		}
+
+		.results-table th {
+			padding: 1rem;
+			font-weight: 600;
+		}
+
+		.results-table th:first-child {
+			text-align: left;
+		}
+
+		.results-table th:not(:first-child) {
+			text-align: right;
+		}
+
+		.results-table td {
+			padding: 1rem;
+			font-weight: 500;
+		}
+
+		.results-table td:first-child {
+			font-weight: 500;
+		}
+
+		.results-table td:not(:first-child) {
+			text-align: right;
+		}
+
+		.results-table tbody tr {
+			border-bottom: 1px solid var(--bg-color);
+		}
+
+		.results-table tbody tr:last-child {
+			border-bottom: none;
+		}
+
+		.winner-cell {
+			font-weight: 600;
+			color: #16a34a;
+		}
+
+		.multiplier {
+			font-size: 0.85em;
+			opacity: 0.7;
+		}
+
+		.multiplier-slow {
+			font-size: 0.85em;
+			opacity: 0.7;
+			color: #dc2626;
+		}
+
+		.multiplier-baseline {
+			font-size: 0.85em;
+			color: var(--text-color);
+			opacity: 0.7;
+		}
+
+		@media screen and (min-width: 1080px) {
+			body {
+				font-size: 18px;
+			}
+
+			.container {
+				max-width: 900px;
+				padding: 60px;
+			}
+
+			h1 {
+				font-size: 2.8em;
+			}
+
+			p {
+				font-size: 1.1em;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<script>
+		// Set theme immediately to prevent flash
+		if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+			document.body.classList.add('dark');
+		}
+	</script>
+	<div class="main-content">
+		<div class="container">
+			<a href="index.html" class="back-link">← Back to Home</a>
+
+			<div class="blog-content">
+				<header class="post-header">
+					<h1 class="post-title">Benchmarking 'cn': Why `clsx` is Still King</h1>
+					<div class="post-meta">
+						<span>Performance Engineering</span> • <span>JavaScript</span>
+					</div>
+				</header>
+
+				<article>
+					<p>
+						If you are building modern React applications, especially with Tailwind CSS, you have likely encountered the
+						<code>cn()</code> utility. It’s the standard helper function (popularized by tools like shadcn/ui) used to
+						merge
+						class names conditionally.
+					</p>
+
+					<p>
+						Typically, it looks like this:
+					</p>
+
+					<pre class="code-example">import { clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs))
+}
+</pre>
+
+					<p>
+						But as developers, we often wonder: <em>"Do I really need a library for this? Can't I just write a simple
+							loop?"</em>
+					</p>
+
+					<p>
+						I decided to put this to the test. I benchmarked four different implementations of a class merging function
+						against each other to see if native implementations could beat the library. The results were surprising.
+					</p>
+
+					<h2 class="section-heading">The Contenders</h2>
+
+					<h3 class="subsection-heading">1. The "Array Push" (Naive)</h3>
+					<p>
+						This is the most intuitive implementation. We iterate through arguments, check types, push valid classes to
+						an
+						array, and <code>.join(" ")</code> them at the end.
+					</p>
+
+					<div class="collapsible-code">
+						<div class="accordion-header">View implementation</div>
+						<div class="code-block">
+							<pre>const cn = (...classes) => {
+  const result = [];
+  for (const cls of classes) {
+    if (typeof cls === "string") {
+      result.push(cls);
+    } else if (typeof cls === "object" && cls !== null) {
+      Object.entries(cls).forEach(([key, value]) => value && result.push(key));
+    }
+  }
+  return result.join(" ");
+};</pre>
+						</div>
+					</div>
+
+					<h3 class="subsection-heading">2. The "Functional" (Map/Filter)</h3>
+					<p>
+						The modern one-liner approach. It looks clean but relies heavily on array methods like <code>map</code> and
+						<code>filter</code>, creating intermediate arrays for every operation.
+					</p>
+
+					<div class="collapsible-code">
+						<div class="accordion-header">View implementation</div>
+						<div class="code-block">
+							<pre>const cn = (...classes) => {
+  return classes
+    .map(cls => {
+      if (typeof cls === "string") return cls;
+      if (typeof cls === "object" && cls !== null) {
+        return Object.entries(cls)
+          .filter(([_, value]) => value)
+          .map(([key]) => key)
+          .join(" ");
+      }
+      return "";
+    })
+    .filter(Boolean)
+    .join(" ");
+};</pre>
+						</div>
+					</div>
+
+					<h3 class="subsection-heading">3. The Library (clsx)</h3>
+					<p>
+						The standard <code>clsx</code> library implementation.
+					</p>
+
+					<div class="collapsible-code">
+						<div class="accordion-header">View usage</div>
+						<div class="code-block">
+							<pre>import { clsx } from "clsx";
+
+// Usage is the same as our implementations
+const cn = clsx;
+
+// Or if combined with tailwind-merge
+import { twMerge } from "tailwind-merge";
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}</pre>
+						</div>
+					</div>
+
+					<h3 class="subsection-heading">4. The "String Concatenation" (Optimized)</h3>
+					<p>
+						A custom implementation we wrote that mimics <code>clsx</code>'s strategy: avoiding arrays entirely and
+						just
+						appending to a string variable.
+					</p>
+
+					<div class="collapsible-code">
+						<div class="accordion-header">View implementation</div>
+						<div class="code-block">
+							<pre>const cn = (...classes) => {
+  let result = "";
+  for (const cls of classes) {
+    if (typeof cls === "string") {
+      if (cls) {
+        result += (result && " ") + cls;
+      }
+    } else if (typeof cls === "object" && cls !== null) {
+      for (const [key, value] of Object.entries(cls)) {
+        if (value) {
+          result += (result && " ") + key;
+        }
+      }
+    }
+  }
+  return result;
+};</pre>
+						</div>
+					</div>
+					<h2 class="section-heading">The Benchmark Results</h2>
+
+					<p>
+						I ran the benchmark for 100,000 iterations (with 5 runs and warmup phase) across test cases ranging
+						from
+						simple strings to
+						complex objects with dozens of conditional classes. The results were consistent and clear.
+					</p>
+
+					<div class="table-wrapper">
+						<table class="results-table">
+							<thead>
+								<tr>
+									<th>Test Case</th>
+									<th>clsx</th>
+									<th>String Concat</th>
+									<th>Array Push</th>
+									<th>Map/Filter</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Short (3-5 classes)</td>
+									<td class="winner-cell">26.53ms<br><span class="multiplier-baseline">(1.0x)</span></td>
+									<td>34.32ms<br><span class="multiplier">(1.3x)</span></td>
+									<td>97.38ms<br><span class="multiplier-slow">(3.7x)</span></td>
+									<td>120.08ms<br><span class="multiplier-slow">(4.5x)</span></td>
+								</tr>
+								<tr>
+									<td>Long (10-15 classes)</td>
+									<td class="winner-cell">88.40ms<br><span class="multiplier-baseline">(1.0x)</span></td>
+									<td>111.88ms<br><span class="multiplier">(1.3x)</span></td>
+									<td>290.23ms<br><span class="multiplier-slow">(3.3x)</span></td>
+									<td>393.12ms<br><span class="multiplier-slow">(4.4x)</span></td>
+								</tr>
+								<tr>
+									<td>Very Long (20-35 classes)</td>
+									<td class="winner-cell">160.39ms<br><span class="multiplier-baseline">(1.0x)</span></td>
+									<td>236.15ms<br><span class="multiplier">(1.5x)</span></td>
+									<td>520.07ms<br><span class="multiplier-slow">(3.2x)</span></td>
+									<td>668.26ms<br><span class="multiplier-slow">(4.2x)</span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<p>
+						<strong>What the numbers tell us:</strong> <code>clsx</code> is the clear winner across all
+						scenarios. The
+						performance gap remains consistent: it's roughly <strong>30-50% faster</strong> than our optimized
+						String
+						Concatenation approach, <strong>3-4x faster</strong> than the naive Array Push method, and
+						<strong>4-5x
+							faster</strong> than the functional Map/Filter approach.
+					</p>
+
+					<p>
+						Interestingly, the relative performance stays remarkably stable regardless of input size. Whether
+						you're
+						merging 5 classes or 35 classes, the multipliers remain consistent—<code>clsx</code> maintains its
+						lead
+						through algorithmic efficiency, not just lucky optimization for specific cases.
+					</p>
+
+					<h2 class="section-heading">Why is `clsx` so fast?</h2>
+
+					<p>
+						The difference wasn't small—it was massive. Looking at the source code and profiling the execution,
+						the
+						performance gap boils down to one thing: <strong>Memory Allocation</strong>.
+					</p>
+
+					<h3 class="subsection-heading">1. Avoiding `Object.entries`</h3>
+					<p>
+						Both of our native implementations (Array Push and Map/Filter) relied on
+						<code>Object.entries(obj)</code> to
+						process conditional objects.
+						<br>
+						<code>Object.entries</code> is expensive. It has to allocate a new array containing sub-arrays for
+						every
+						key-value
+						pair (e.g., <code>[['btn', true], ['active', false]]</code>).
+					</p>
+					<p>
+						<strong>clsx</strong>, on the other hand, uses a simple <code>for (key in obj)</code> loop. This
+						iterates
+						directly
+						over properties without creating any intermediate arrays, keeping the Garbage Collector idle.
+					</p>
+
+					<h3 class="subsection-heading">2. Direct String Concatenation</h3>
+					<p>
+						Our "Array Push" method builds an array <code>['btn', 'active']</code> and then calls
+						<code>.join(' ')</code>.
+						<br>
+						<strong>clsx</strong> just does <code>str += ' ' + key</code>. Modern JavaScript engines (like V8)
+						are
+						incredibly
+						good at optimizing string concatenation. By avoiding the overhead of managing array size and
+						indices, it
+						shaves
+						off critical microseconds.
+					</p>
+
+					<h2 class="section-heading">Conclusion</h2>
+
+					<p>
+						The numbers speak for themselves. The <code>clsx</code> package is tiny (239B minified + gzipped),
+						has no
+						dependencies, and is micro-optimized for performance. Our custom "String Concatenation" version came
+						closest
+						at 1.3-1.5x slower, but we essentially just rewrote <code>clsx</code> poorly—and it showed higher
+						performance
+						variability (7.86% CV vs clsx's 2.20% CV).
+					</p>
+
+					<p>
+						The naive implementations were significantly slower: the Array Push method was 3-4x slower, and the
+						functional
+						Map/Filter approach was 4-5x slower. When <code>cn()</code> might be called thousands of times
+						during
+						renders
+						or class name calculations, these differences compound.
+					</p>
+
+					<p>
+						<strong>Bottom line:</strong> Don't reinvent the wheel—especially when the wheel is this fast, this
+						small,
+						and
+						this battle-tested.
+					</p>
+				</article>
+			</div>
+		</div>
+	</div>
+	<script src="header.js"></script>
+</body>
+
+</html>
