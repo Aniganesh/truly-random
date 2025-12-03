@@ -459,14 +459,13 @@ export function cn(...inputs) {
 						Interestingly, the relative performance stays remarkably stable regardless of input size. Whether
 						you're
 						merging 5 classes or 35 classes, the multipliers remain consistent—<code>clsx</code> maintains its
-						lead
-						through algorithmic efficiency, not just lucky optimization for specific cases.
+						lead.
 					</p>
 
 					<h2 class="section-heading">Why is `clsx` so fast?</h2>
 
 					<p>
-						The difference wasn't small—it was massive. Looking at the source code and profiling the execution,
+						The difference was massive. Looking at the source code and profiling the execution,
 						the
 						performance gap boils down to one thing: <strong>Memory Allocation</strong>.
 					</p>
@@ -508,9 +507,9 @@ export function cn(...inputs) {
 					<p>
 						The numbers speak for themselves. The <code>clsx</code> package is tiny (239B minified + gzipped),
 						has no
-						dependencies, and is micro-optimized for performance. Our custom "String Concatenation" version came
+						dependencies, and is micro-optimized for performance. The custom "String Concatenation" version came
 						closest
-						at 1.3-1.5x slower, but we essentially just rewrote <code>clsx</code> poorly—and it showed higher
+						at 1.3-1.5x slower, but I essentially just rewrote <code>clsx</code> poorly—and it showed higher
 						performance
 						variability (7.86% CV vs clsx's 2.20% CV).
 					</p>
