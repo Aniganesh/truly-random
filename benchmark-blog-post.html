@@ -13,6 +13,7 @@
 			justify-content: center;
 			align-items: flex-start;
 			min-height: 100vh;
+			padding-top: 40px;
 		}
 
 		.container {
@@ -531,12 +532,13 @@ export function cn(...inputs) {
 					</p>
 				</article>
 			</div>
+			<p>
+				PS: Want to run the benchmark yourself? <a href="benchmark-cn.js" download>Download the benchmark script</a> and
+				run it
+				locally with <code>node benchmark-cn.js</code> (or <code>node --expose-gc benchmark-cn.js</code> for better GC
+				control).
+			</p>
 		</div>
-		<p>
-			PS: Want to run the benchmark yourself? <a href="benchmark-cn.js" download>Download the benchmark script</a> and run it
-			locally with <code>node benchmark-cn.js</code> (or <code>node --expose-gc benchmark-cn.js</code> for better GC
-			control).
-		</p>
 	</div>
 	<script src="header.js"></script>
 </body>
