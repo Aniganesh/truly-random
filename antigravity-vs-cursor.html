@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Antigravity vs Cursor - Truly Random</title>
+	<link rel="stylesheet" href="styles.css">
+	<style>
+		/* Page-specific styles */
+		.main-content {
+			display: flex;
+			justify-content: center;
+			align-items: flex-start;
+			min-height: 100vh;
+			padding-top: 40px;
+		}
+
+		.container {
+			max-width: 800px;
+			margin-bottom: 40px;
+		}
+
+		h1 {
+			font-size: 2.2em;
+			margin-bottom: 10px;
+		}
+
+		.meta {
+			color: var(--text-color);
+			opacity: 0.7;
+			font-size: 0.9em;
+			margin-bottom: 30px;
+		}
+
+		p {
+			line-height: 1.6;
+		}
+
+		.back-link {
+			display: inline-block;
+			margin-bottom: 20px;
+			font-size: 0.9em;
+		}
+
+		.blog-content {
+			margin-top: 30px;
+		}
+
+		pre,
+		code {
+			background-color: var(--bg-color);
+			padding: 10px;
+			border-radius: 6px;
+			font-family: 'Monaco', 'Consolas', monospace;
+			overflow-x: auto;
+		}
+
+		code {
+			padding: 2px 6px;
+		}
+
+		blockquote {
+			border-left: 4px solid var(--link-color);
+			margin: 20px 0;
+			padding-left: 20px;
+			font-style: italic;
+		}
+
+		/* Blog post specific styles */
+		.post-header {
+			margin-bottom: 2rem;
+			border-bottom: 1px solid #eaeaea;
+			padding-bottom: 1rem;
+		}
+
+		.post-title {
+			margin-bottom: 0.5rem;
+			font-size: 2.5rem;
+			font-weight: 800;
+		}
+
+		.post-meta {
+			color: #666;
+			font-size: 0.9rem;
+		}
+
+		.post-meta span {
+			margin: 0 0.5rem;
+		}
+
+		.section-heading {
+			margin-top: 2rem;
+			font-size: 1.8rem;
+		}
+
+		.subsection-heading {
+			font-size: 1.3rem;
+		}
+
+		.sub-heading {
+			font-size: 1.2rem;
+			margin-top: 1.5rem;
+		}
+
+
+		.collapsible-code .code-block pre,
+		.code-example {
+			margin-top: 1rem;
+			padding: 1rem;
+			border-radius: 6px;
+			overflow-x: auto;
+			font-size: 0.9rem;
+			background-color: var(--bg-color);
+		}
+
+		.collapsible-code {
+			margin: 1rem 0;
+			border: 1px solid var(--link-color);
+			border-radius: 6px;
+			padding: 0.5rem;
+		}
+
+		.accordion-header {
+			cursor: pointer;
+			font-weight: 600;
+			padding: 0.5rem;
+			user-select: none;
+		}
+
+		.accordion-header::before {
+			content: '▶';
+			display: inline-block;
+			margin-right: 0.5rem;
+			transition: transform 0.3s ease;
+		}
+
+		.collapsible-code.is-open .accordion-header::before {
+			transform: rotate(90deg);
+		}
+
+		.collapsible-code .code-block {
+			max-height: 0;
+			overflow: hidden;
+			opacity: 0;
+			transition: max-height 0.4s ease, opacity 0.3s ease;
+		}
+
+		.collapsible-code.is-open .code-block {
+			max-height: 2000px;
+			opacity: 1;
+		}
+
+		@media screen and (min-width: 1080px) {
+			body {
+				font-size: 18px;
+			}
+
+			.container {
+				max-width: 900px;
+				padding: 60px;
+			}
+
+			h1 {
+				font-size: 2.8em;
+			}
+
+			p {
+				font-size: 1.1em;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<script>
+		// Set theme immediately to prevent flash
+		const savedTheme = localStorage.getItem('theme');
+		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+		if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+			document.body.classList.add('dark');
+		}
+	</script>
+	<div class="main-content">
+		<div class="container">
+			<a href="index.html" class="back-link">← Back to Home</a>
+
+			<div class="blog-content">
+				<header class="post-header">
+					<h1 class="post-title">Antigravity vs Cursor: Review after using both for a month</h1>
+					<div class="post-meta">
+						<span>Developer Tools</span> • <span>Review</span>
+					</div>
+				</header>
+
+				<article>
+					<p>I've been using Cursor over a year now and have used it quite a bit in that time. From its early days when
+						the chat felt like an extension tacked on top to now where chat seems to be the primary mode of interaction,
+						it's come a long way.</p>
+					<p>
+						Given the hype around <strong>Antigravity</strong> I decided to use it for a while. I've been so used to my
+						workflow
+						in Cursor that switching IDEs feels like trying to write with my left hand, but I wanted to see if the grass
+						was actually greener; or at least different.
+					</p>
+
+					<p>
+						Spoiler: It's a mixed bag.
+					</p>
+
+					<h2 class="section-heading">The Bad stuff</h2>
+
+					<p>
+						The onboarding wasn't exactly the "white glove" experience I was hoping for. I expected it to just pull in
+						all
+						my VS Code extensions and settings seamlessly, but a bunch of them failed to import. The worst part? It
+						didn't
+						even tell me. I only realized when I opened the extensions panel to see why my theme was different. It uses
+						the Open VSX
+						marketplace, which causes compatibility gaps, but not warning the user feels like a letdown.
+					</p>
+
+					<p>
+						Then I started coding. It feels like it doesn't automatically index the codebase in the background. Every
+						time I
+						started a new chat, it felt like it had to search the codebase from scratch. The agent would go "let me read
+						the codebase to gather context", every single time.
+					</p>
+
+					<p>
+						The agent's interaction with tools also felt a bit raw. I tried to get it to check some TypeScript errors,
+						and
+						it ran <code>npx tsc --noEmit</code> in the terminal. Same for Eslint. It works, sure, but I wished it could
+						just tap into the
+						language server directly.
+					</p>
+
+					<p>
+						The browser agent relies heavily on executing JS for everything rather than
+						interacting with the DOM directly via MCP.
+					</p>
+
+					<p>
+						Another friction point: <strong>The lack of tabs for agents.</strong> It's difficult to switch conversations
+						even if things are running in the background. It seems they want to push us towards the Agent Manager but
+						that ruins context for me.
+					</p>
+
+					<h2 class="section-heading">The Good stuff</h2>
+					<p>
+						<strong>Google AI Pro plan</strong> limits are incredibly generous. I stopped worrying about
+						"spending"
+						credits. Do note that I got Google AI Pro plan for free through a promotion Google is running in India.
+					</p>
+
+					<h2 class="section-heading">The Hell yeah! stuff</h2>
+
+					<h3 class="subsection-heading">1. Video Analysis for Testing</h3>
+					<p>
+						This was huge. I was working on some tricky CSS animations. In Cursor, I'd have to describe what's
+						happening.
+						The Antigravity browser agent just... analyzed the video recording of the browser session. It's something
+						I'd desperately wanted in Cursor. Antigravity's browser agent works perfectly for this usecase.
+					</p>
+
+					<h3 class="subsection-heading">2. No "Modes"</h3>
+					<p>
+						I realized I've developed a subtle annoyance with Cursor's modes-switching to "Agent" to write, "Ask" to
+						ask,
+						"Plan" to plan and "Debug" to debug.
+					</p>
+
+					<p>
+						In Antigravity, the agent just does what it's asked. I tell it to "Make a plan," and it creates a plan
+						artifact.
+						I can review it line-by-line, leave comments, and iterate right there. It feels organic. It doesn't feel
+						like I'm
+						jumping lines at the receptionist's desk.
+					</p>
+
+					<h2 class="section-heading">Conclusion</h2>
+
+					<p>
+						It's definitely rough around the edges. It feels like where Cursor was in Feb/March 2025. The onboarding
+						needs love, and the UI for switching conversations is clunky.
+						But the philosophy: generous limits, video analysis, and a mode-less workflow centered around artifacts is
+						compelling.
+					</p>
+
+					<p>
+						I'm not uninstalling Cursor just yet, but if Google's models improve context size, following instructions
+						and the browser agent begging me for permission every 5 seconds, Antigravity might be a better option
+						overall given the price point and the additional benefits like cloud storage, Gemini in emails, workspace
+						etc.
+						To keep me on Cursor, they could get rid of the modes and make the agent do what it's asked to do. Better
+						pricing like a $40 plan with 1k requests would be great as well. I currently run out of the included 500
+						requests in less than 2 weeks.
+					</p>
+				</article>
+			</div>
+		</div>
+	</div>
+	<script src="header.js"></script>
+</body>
+
+</html>
